@@ -40,7 +40,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onSignin: (email, password) => dispatch(ac.emailAuth(email, password)),
-    onRegister: (email, password) => dispatch(ac.createAuth(email, password))
+    onRegister: (email, password) => dispatch(ac.createAuth(email, password)),
   };
 };
 

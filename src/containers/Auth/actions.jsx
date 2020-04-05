@@ -1,8 +1,11 @@
 import {db, auth} from '../../firebase';
+import authConstants from './constants';
+import alertConstants from '../Alert/constants';
+import history from '../../_helpers/history';
 
 export const updateAuth = auth => {
   return {
-    type: "AUTH_UPDATED",
+    type: authConstants.UPDATED,
     auth
   };
 };
@@ -24,7 +27,10 @@ export const createAuth = (email, password) => {
     .then((user) => {
       console.log(user);
     }).catch((error) => {
-      console.log(error);
+      dispatch({
+        type: alertConstants.OPEN,
+        message: error.message
+      })
     });
     dispatch(updateAuth('user'));
   };

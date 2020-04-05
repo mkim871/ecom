@@ -9,9 +9,11 @@ import thunk from "redux-thunk";
 import './firebase';
 
 import auth from './containers/Auth/reducer';
+import alert from './containers/Alert/reducer';
 
 const rootReducer = combineReducers({
-  auth
+  auth,
+  alert
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

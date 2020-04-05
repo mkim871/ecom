@@ -4,6 +4,7 @@ import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Home from "../Home/Home";
 import Auth from "../Auth/Auth";
+import Alert from "../Alert/Alert";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           Learn React
         </a>
       </header> */}
+        <Alert />
 
         <Switch>
           <Route path="/" exact component={Home} />
