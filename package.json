@@ -8,6 +8,10 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "@types/jest": "^25.2.1",
+    "@types/node": "^13.11.0",
+    "@types/react": "^16.9.32",
+    "@types/react-dom": "^16.9.6",
     "firebase": "^7.13.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -16,7 +20,8 @@
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "styled-components": "^5.0.1"
+    "styled-components": "^5.0.1",
+    "typescript": "^3.8.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -41,5 +46,8 @@
   },
   "main": "index.js",
   "author": "Nicholas",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/react-redux": "^7.1.7"
+  }
 }
