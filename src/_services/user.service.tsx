@@ -31,7 +31,7 @@ const userService = {
         const credential = await auth.signInWithEmailAndPassword(email, password);
         if (credential !== null && credential.user !== null) {
           const user = await db.collection('users').doc(credential.user.uid).get();
-          resolve(user);
+          resolve(user.data());
         } else {
           reject ("Credential is null");
         }
@@ -39,6 +39,13 @@ const userService = {
         reject(error);
       }
     })
+  },
+
+  getUserDetail: (uid:string) => {
+    return new Promise(async (resolve, reject) => {
+      const user = await db.collection('users').doc(uid).get();
+      resolve(user.data());
+    });
   }
 }
 

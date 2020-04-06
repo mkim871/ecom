@@ -24,6 +24,7 @@ export const emailAuth = (email, password) => {
     }).catch((error) => {
       dispatch({
         type: alertConstants.OPEN,
+        title: 'Error',
         message: error.message
       })
     });
@@ -44,6 +45,7 @@ export const createAuth = (email, password) => {
     }).catch((error) => {
       dispatch({
         type: alertConstants.OPEN,
+        title: 'Error',
         message: error.message
       })
     });
