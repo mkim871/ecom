@@ -1,7 +1,7 @@
-import {db, auth} from '../../firebase';
 import authConstants from './constants';
 import alertConstants from '../Alert/constants';
 import history from '../../_helpers/history';
+import userService from '../../_services/user.service';
 
 export const updateAuth = auth => {
   return {
@@ -23,15 +23,14 @@ export const emailAuth = (email, password) => {
 
 export const createAuth = (email, password) => {
   return async (dispatch, getState) => {
-    auth.createUserWithEmailAndPassword(email, password)
+    userService.createUser(email, password)
     .then((user) => {
-      console.log(user);
+      dispatch(updateAuth(user));
     }).catch((error) => {
       dispatch({
         type: alertConstants.OPEN,
         message: error.message
       })
     });
-    dispatch(updateAuth('user'));
   };
 };
