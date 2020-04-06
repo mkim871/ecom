@@ -11,10 +11,27 @@ const userService = {
             uid: credential.user.uid,
             email: credential.user.email!,
             provider: 'firebase',
-            createdAt: timestamp
+            createdAt: timestamp,
+            emailVerified: false
           }
           await db.collection('users').doc(credential.user.uid).set(newUser);
           resolve(newUser);
+        } else {
+          reject ("Credential is null");
+        }
+      } catch (error) {
+        reject(error);
+      }
+    })
+  },
+
+  signin: (email:string, password:string) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const credential = await auth.signInWithEmailAndPassword(email, password);
+        if (credential !== null && credential.user !== null) {
+          const user = await db.collection('users').doc(credential.user.uid).get();
+          resolve(user);
         } else {
           reject ("Credential is null");
         }

@@ -1,14 +1,15 @@
 import React from "react";
 import logo from "../../logo.svg";
 import "./App.css";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Router, Switch, Route } from "react-router-dom";
+import { history } from "../../_helpers/history";
 import Home from "../Home/Home";
 import Auth from "../Auth/Auth";
 import Alert from "../Alert/Alert";
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router history={history}>
       <div className="App">
         {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
@@ -32,7 +33,7 @@ function App() {
           <Route render={() => <div>Not found</div>}></Route>
         </Switch>
       </div>
-    </BrowserRouter>
+    </Router>
   );
 }
 
