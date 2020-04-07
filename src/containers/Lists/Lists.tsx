@@ -5,6 +5,7 @@ import styled from "styled-components";
 import * as ac from "./actions";
 import List from "../../components/list/list";
 import { Item } from "../../_models/item";
+import { media } from "../../_styles/media";
 
 interface CompProps {
   lists: any;
@@ -16,9 +17,14 @@ const ListContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 10px;
+  ${media.lg`
+    grid-template-columns: 1fr 1fr 1fr;
+  `}
+  ${media.lg`
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  `}
 `;
-const StyledList = styled(List)`
-`;
+const StyledList = styled(List)``;
 export class Lists extends Component<CompProps> {
   componentDidMount() {
     this.props.onGetList();

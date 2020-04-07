@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import {
   Card,
-  CardActions,
   CardActionArea,
   CardMedia,
   CardContent,
@@ -12,11 +11,17 @@ import {
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import { Item } from "../../_models/item";
 import numberFormat from "../../_helpers/numberFormat";
+import { media } from "../../_styles/media";
 
 const StyledCardMedia = styled(CardMedia)`
   width: 100%;
   height: 200px;
+  border-radius: 4px;
   background-size: cover;
+  ${media.md`
+    height: 300px;
+    width: 100%;
+ `};
 `;
 const Brand = styled.h5`
   color: ${(props) => props.theme.colors.text2};
@@ -41,9 +46,16 @@ const Price = styled.div`
   color: ${(props) => props.theme.colors.text2};
   font-size: 18px;
   font-weight: 600;
+  ${media.md`
+    font-size: 22px;
+ `};
 `;
-const StyledIcon = styled(FavoriteBorderOutlinedIcon)`
+const StyledIconButton = styled(IconButton)`
   color: ${(props) => props.theme.colors.primary1};
+  padding: 0px;
+  ${media.md`
+    padding: 5px;
+ `};
 `;
 const InlineWrapper = styled.div`
   display: flex;
@@ -54,25 +66,29 @@ const InlineWrapper = styled.div`
 const List = (props: { item: Item; [key: string]: any }) => {
   return (
     <Card {...props}>
-      <CardActionArea component={Link} to={`/lists/${props.item.id}`}>
-        <StyledCardMedia
-          image={`https://picsum.photos/300/400?random=${props.item.id}`}
-          title="Contemplative Reptile"
-        />
-        <CardContent>
-          <Brand>{props.item.brand}</Brand>
-          <Model>
-            {props.item.year} {props.item.model}
-          </Model>
-          <InlineWrapper>
-            <Price>
-              <Currency>$</Currency>
-              {numberFormat(props.item.price)}
-            </Price>
-            <StyledIcon />
-          </InlineWrapper>
-        </CardContent>
+      <CardActionArea>
+        <Link to={`/lists/${props.item.id}`}>
+          <StyledCardMedia
+            image={`https://picsum.photos/300/400?random=${props.item.id}`}
+            title="Contemplative Reptile"
+          />
+        </Link>
       </CardActionArea>
+      <CardContent>
+        <Brand>{props.item.brand}</Brand>
+        <Model>
+          {props.item.year} {props.item.model}
+        </Model>
+        <InlineWrapper>
+          <Price>
+            <Currency>$</Currency>
+            {numberFormat(props.item.price)}
+          </Price>
+          <StyledIconButton aria-label="delete">
+            <FavoriteBorderOutlinedIcon />
+          </StyledIconButton>
+        </InlineWrapper>
+      </CardContent>
     </Card>
   );
 };
