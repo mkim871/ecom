@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Router, Switch, Route, Link } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
 import { history } from "../../_helpers/history";
 import { auth } from "../../firebase";
 import Home from "../Home/Home";
@@ -9,10 +10,11 @@ import Alert from "../Alert/Alert";
 import Lists from "../Lists/Lists";
 import * as ac from "../Auth/actions";
 import userService from "../../_services/user.service";
+import theme from "../../_styles/theme";
 
 class App extends Component {
   componentDidMount() {
-    this.listener = auth.onAuthStateChanged(async auth => {
+    this.listener = auth.onAuthStateChanged(async (auth) => {
       if (auth) {
         const user = await userService.getUserDetail(auth.uid);
         this.props.onAuth(user);
@@ -29,32 +31,34 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <Alert />
-        <Router history={history}>
-        <Link to="/auth/signin">Sign in</Link>
-        <Link to="/auth/register">Register</Link>
-        <Link to="/lists">Lists</Link>
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/auth/:type" component={Auth} />
-            <Route path="/lists" component={Lists} />
-            <Route render={() => <div>Not found</div>}></Route>
-          </Switch>
-        </Router>
+        <ThemeProvider theme={theme}>
+          <Alert />
+          <Router history={history}>
+            <Link to="/auth/signin">Sign in</Link>
+            <Link to="/auth/register">Register</Link>
+            <Link to="/lists">Lists</Link>
+            <Switch>
+              <Route path="/" exact component={Home} />
+              <Route path="/auth/:type" component={Auth} />
+              <Route path="/lists" component={Lists} />
+              <Route render={() => <div>Not found</div>}></Route>
+            </Switch>
+          </Router>
+        </ThemeProvider>
       </React.Fragment>
     );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    auth: state.auth
+    auth: state.auth,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    onAuth: auth => dispatch(ac.updateAuth(auth))
+    onAuth: (auth) => dispatch(ac.updateAuth(auth)),
   };
 };
 
