@@ -12,6 +12,7 @@ import Item from "../Item/Item";
 import * as ac from "../Auth/actions";
 import userService from "../../_services/user.service";
 import theme from "../../_styles/theme";
+import NavBar from "../NavBar/NavBar";
 
 class App extends Component {
   componentDidMount() {
@@ -35,9 +36,7 @@ class App extends Component {
         <ThemeProvider {...this.props} theme={theme}>
           <Alert />
           <Router history={history}>
-            <Link to="/auth/signin">Sign in</Link>
-            <Link to="/auth/register">Register</Link>
-            <Link to="/lists">Lists</Link>
+            <NavBar />
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/auth/:type" component={Auth} />
