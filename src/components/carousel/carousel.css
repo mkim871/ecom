@@ -20,6 +20,7 @@
   overflow: hidden;
   vertical-align: middle;
   filter: grayscale(100%);
+  border: 2px solid rgb(207, 207, 207);
 }
 
 .thumbnail-container > li:first-child {
@@ -27,7 +28,7 @@
 }
 
 .thumbnail-container > li.slick-active {
-  border: 3px solid #fd9334;
+  border: 2px solid #fd9334;
   filter: none;
 }
 

@@ -51,11 +51,13 @@ const Price = styled.div`
  `};
 `;
 const StyledIconButton = styled(IconButton)`
-  color: ${(props) => props.theme.colors.primary1};
-  padding: 0px;
-  ${media.md`
-    padding: 5px;
- `};
+  && {
+    color: ${(props) => props.theme.colors.primary1};
+    padding: 0px;
+    ${media.md`
+      padding: 5px;
+    `};
+  }
 `;
 const InlineWrapper = styled.div`
   display: flex;

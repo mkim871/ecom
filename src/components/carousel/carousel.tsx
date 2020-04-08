@@ -22,7 +22,7 @@ const carousel = (props: { imgs: string[]; config?: object }) => {
   };
 
   return (
-    <div>
+    <div {...props}>
       <Slider {..._config}>
         {props.imgs.map((img, i) => {
           return <img src={img} key={i} />

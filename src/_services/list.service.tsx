@@ -34,6 +34,17 @@ const listService = {
     //     price: _.sample([12000, 3000, 9000, 50000, 60000]) as number,
     //   });
     // })
+  },
+
+  getItem: (id: string) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const res = await db.collection('lists').doc(id).get();
+        resolve(res.data());
+      } catch (error) {
+        reject(error);
+      }
+    });
   }
 }
 

@@ -8,6 +8,7 @@ import Home from "../Home/Home";
 import Auth from "../Auth/Auth";
 import Alert from "../Alert/Alert";
 import Lists from "../Lists/Lists";
+import Item from "../Item/Item";
 import * as ac from "../Auth/actions";
 import userService from "../../_services/user.service";
 import theme from "../../_styles/theme";
@@ -31,7 +32,7 @@ class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider {...this.props} theme={theme}>
           <Alert />
           <Router history={history}>
             <Link to="/auth/signin">Sign in</Link>
@@ -40,7 +41,8 @@ class App extends Component {
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/auth/:type" component={Auth} />
-              <Route path="/lists" component={Lists} />
+              <Route path="/lists" exact component={Lists} />
+              <Route path="/lists/:id" component={Item} />
               <Route render={() => <div>Not found</div>}></Route>
             </Switch>
           </Router>

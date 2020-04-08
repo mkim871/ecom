@@ -11,11 +11,13 @@ import './firebase';
 import auth from './containers/Auth/reducer';
 import alert from './containers/Alert/reducer';
 import lists from './containers/Lists/reducer';
+import item from './containers/Item/reducer';
 
 const rootReducer = combineReducers({
   auth,
   alert,
-  lists
+  lists,
+  item,
 });
 
 const composeEnhancers =  (window && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
