@@ -24,7 +24,7 @@ export class Auth extends Component {
           googleAuth={this.googleAuthHandler}
           register={this.registerHandler}
           signin={this.signinHandler}
-          type={this.props.match.params.type === "register"}
+          type={this.props.location.pathname === "/auth/register"}
         />
       </Container>
     );

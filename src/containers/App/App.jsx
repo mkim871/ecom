@@ -39,7 +39,8 @@ class App extends Component {
             <NavBar />
             <Switch>
               <Route path="/" exact component={Home} />
-              <Route path="/auth/:type" component={Auth} />
+              <Route path="/auth/register" exact component={Auth} />
+              <Route path="/auth/signin" exact component={Auth} />
               <Route path="/lists" exact component={Lists} />
               <Route path="/lists/:id" component={Item} />
               <Route render={() => <div>Not found</div>}></Route>

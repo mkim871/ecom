@@ -8,6 +8,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import styled from "styled-components";
 import { media } from "../../_styles/media";
 import NavBarDrawer from "../../components/navBarDrawer/navBarDrawer";
+import img from "../../logo.png";
 
 const links = [
   {
@@ -40,6 +41,14 @@ const StyledIconButton = styled(IconButton)`
   ${media.md`
      display: none;
   `}
+`;
+const StyledLogoContainer = styled.div`
+  flex: 1;
+  padding: 10px;
+`;
+const StyledLogo = styled.img`
+  height: 30px;
+  box-sizing: border-box;
 `;
 
 class NavBar extends React.Component {
@@ -80,7 +89,10 @@ class NavBar extends React.Component {
             >
               <MenuIcon />
             </StyledIconButton>
-            <StyledH6>News</StyledH6>
+            <StyledH6>Place holder</StyledH6>
+            {/* <StyledLogoContainer>
+              <StyledLogo src={img} alt="Logo" />
+            </StyledLogoContainer> */}
             <StyledDesktopButtonsContainer>
               {links.map((link) => {
                 return (

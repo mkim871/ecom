@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField, Button, Divider } from "@material-ui/core";
 import styled from "styled-components";
 
@@ -40,6 +40,10 @@ const AuthForm = props => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  useEffect(() => {
+    setIsRegister(props.type);
+  }, [props]);
+
   const register = () => {
     props.register(email, password);
   };
@@ -50,7 +54,7 @@ const AuthForm = props => {
 
   return (
     <React.Fragment>
-      <H1>Sign in to Ecom</H1>
+      <H1>{isRegister ? 'Register' : 'Sign in'} to Ecom</H1>
       <Form>
         <AuthButtons>
           <Button
@@ -59,7 +63,7 @@ const AuthForm = props => {
             variant="contained"
             color="primary"
           >
-            Sign in with Facebook
+            {isRegister ? 'Register' : 'Sign in'} with Facebook
           </Button>
           <Button
             onClick={props.googleAuth}
