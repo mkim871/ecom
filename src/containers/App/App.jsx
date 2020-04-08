@@ -14,6 +14,16 @@ import userService from "../../_services/user.service";
 import theme from "../../_styles/theme";
 import NavBar from "../NavBar/NavBar";
 
+import { createMuiTheme, ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
+import {pink, red} from '@material-ui/core/colors';
+
+const muiTheme = createMuiTheme({
+  palette: {
+    primary: pink,
+    secondary: red,
+  },
+});
+
 class App extends Component {
   componentDidMount() {
     this.listener = auth.onAuthStateChanged(async (auth) => {
@@ -34,6 +44,7 @@ class App extends Component {
     return (
       <React.Fragment>
         <ThemeProvider {...this.props} theme={theme}>
+          <MuiThemeProvider theme={muiTheme}>
           <Alert />
           <Router history={history}>
             <NavBar />
@@ -46,6 +57,7 @@ class App extends Component {
               <Route render={() => <div>Not found</div>}></Route>
             </Switch>
           </Router>
+          </MuiThemeProvider>
         </ThemeProvider>
       </React.Fragment>
     );
