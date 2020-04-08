@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
+import Skeleton from "@material-ui/lab/Skeleton";
 
-const thumbnail = (props: any) => {
+const Thumbnail = (props: any) => {
   return (
     <a onClick={props.onClick}>
-      <img src={props.img} />
+      {props.isReady ? (
+        <img src={props.img} />
+      ) : (
+        <Skeleton variant="rect" width={"100%"} height={"100%"} />
+      )}
     </a>
   );
 };
 
-export default thumbnail;
+export default Thumbnail;
