@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -8,22 +9,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 import styled from "styled-components";
 import { media } from "../../_styles/media";
 import NavBarDrawer from "../../components/navBarDrawer/navBarDrawer";
-import img from "../../logo.png";
-
-const links = [
-  {
-    title: "Login",
-    to: "/auth/signin",
-  },
-  {
-    title: "Register",
-    to: "/auth/register",
-  },
-  {
-    title: "Lists",
-    to: "/lists",
-  },
-];
 
 const StyledH6 = styled.h6`
   margin: 0px;
@@ -42,19 +27,72 @@ const StyledIconButton = styled(IconButton)`
      display: none;
   `}
 `;
-const StyledLogoContainer = styled.div`
-  flex: 1;
-  padding: 10px;
-`;
-const StyledLogo = styled.img`
-  height: 30px;
-  box-sizing: border-box;
-`;
+// const StyledLogoContainer = styled.div`
+//   flex: 1;
+//   padding: 10px;
+// `;
+// const StyledLogo = styled.img`
+//   height: 30px;
+//   box-sizing: border-box;
+// `;
 
-class NavBar extends React.Component {
+class NavBar extends React.Component<{
+  [any: string]: any;
+}> {
   state = {
     isOpen: false,
+    links: [
+      {
+        type: "link",
+        title: "Lists",
+        to: "/lists",
+      },
+      {
+        type: "link",
+        title: "Login",
+        to: "/auth/signin",
+        onAuth: false,
+      },
+      {
+        type: "link",
+        title: "Register",
+        to: "/auth/register",
+        onAuth: false,
+      },
+      {
+        type: "action",
+        title: "Sign out",
+        onClick: "signout",
+        onAuth: true,
+      },
+    ],
   };
+
+  actionsHandler(type: string) {
+    if (type === "signout") {
+      console.log(type);
+    }
+  }
+
+  FilteredList(link: any, key: number) {
+    if (this.props.auth && link.onAuth !== undefined && !link.onAuth)
+      return null;
+    if (!this.props.auth && link.onAuth) return null;
+    if (link.type === "link") {
+      return (
+        <Button color="inherit" key={key} component={Link} to={link.to}>
+          {link.title}
+        </Button>
+      );
+    } else if (link.type === "action") {
+      return (
+        <Button color="inherit" key={key} onClick={() =>this.actionsHandler(link.onClick)}>
+          {link.title}
+        </Button>
+      );
+    }
+    return null;
+  }
 
   onToggleDrawer(open: boolean) {
     return (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -75,8 +113,10 @@ class NavBar extends React.Component {
     return (
       <React.Fragment>
         <NavBarDrawer
-          links={links}
+          links={this.state.links}
           open={this.state.isOpen}
+          auth={this.props.auth}
+          onAction={(type: string) => this.actionsHandler(type)}
           toggleDrawer={(b) => this.onToggleDrawer(b)}
         />
         <AppBar position="static">
@@ -94,18 +134,7 @@ class NavBar extends React.Component {
               <StyledLogo src={img} alt="Logo" />
             </StyledLogoContainer> */}
             <StyledDesktopButtonsContainer>
-              {links.map((link) => {
-                return (
-                  <Button
-                    color="inherit"
-                    key={link.to}
-                    component={Link}
-                    to={link.to}
-                  >
-                    {link.title}
-                  </Button>
-                );
-              })}
+              {this.state.links.map((link, index) => this.FilteredList(link, index))}
             </StyledDesktopButtonsContainer>
           </Toolbar>
         </AppBar>
@@ -114,4 +143,14 @@ class NavBar extends React.Component {
   }
 }
 
-export default NavBar;
+const mapStateToProps = (state: any) => {
+  return {
+    auth: state.auth,
+  };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
