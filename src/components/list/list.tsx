@@ -65,33 +65,39 @@ const InlineWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const List = (props: { item: Item; [key: string]: any }) => {
+const List = (props: {
+  // item: Item;
+  addwishlist: (a: any) => any;
+  [key: string]: any;
+}) => {
   return (
-    <Card {...props}>
-      <CardActionArea>
-        <Link to={`/lists/${props.item.id}`}>
-          <StyledCardMedia
-            image={`https://picsum.photos/300/400?random=${props.item.id}`}
-            title="Contemplative Reptile"
-          />
-        </Link>
-      </CardActionArea>
-      <CardContent>
-        <Brand>{props.item.brand}</Brand>
-        <Model>
-          {props.item.year} {props.item.model}
-        </Model>
-        <InlineWrapper>
-          <Price>
-            <Currency>$</Currency>
-            {numberFormat(props.item.price)}
-          </Price>
-          <StyledIconButton aria-label="delete">
-            <FavoriteBorderOutlinedIcon />
-          </StyledIconButton>
-        </InlineWrapper>
-      </CardContent>
-    </Card>
+    <React.Fragment>
+      <Card>
+        <CardActionArea>
+          <Link to={`/lists/${props.item.id}`}>
+            <StyledCardMedia
+              image={`https://picsum.photos/300/400?random=${props.item.id}`}
+              title="Contemplative Reptile"
+            />
+          </Link>
+        </CardActionArea>
+        <CardContent>
+          <Brand>{props.item.brand}</Brand>
+          <Model>
+            {props.item.year} {props.item.model}
+          </Model>
+          <InlineWrapper>
+            <Price>
+              <Currency>$</Currency>
+              {numberFormat(props.item.price)}
+            </Price>
+            <StyledIconButton onClick={props.addwishlist}>
+              <FavoriteBorderOutlinedIcon />
+            </StyledIconButton>
+          </InlineWrapper>
+        </CardContent>
+      </Card>
+    </React.Fragment>
   );
 };
 
