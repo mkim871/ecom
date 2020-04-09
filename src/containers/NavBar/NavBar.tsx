@@ -9,6 +9,8 @@ import MenuIcon from "@material-ui/icons/Menu";
 import styled from "styled-components";
 import { media } from "../../_styles/media";
 import NavBarDrawer from "../../components/navBarDrawer/navBarDrawer";
+import * as ac from '../Auth/actions';
+import { User } from "firebase";
 
 const StyledH6 = styled.h6`
   margin: 0px;
@@ -51,33 +53,45 @@ class NavBar extends React.Component<{
         type: "link",
         title: "Login",
         to: "/auth/signin",
-        onAuth: false,
+        valid: (auth:any) => {
+          return auth === null;
+        },
       },
       {
         type: "link",
         title: "Register",
         to: "/auth/register",
-        onAuth: false,
+        valid: (auth:any) => {
+          return auth === null;
+        },
+      },
+      {
+        type: "link",
+        title: "My wishlist",
+        to: "/wishlist",
+        valid: (auth:any) => {
+          return auth !== null;
+        },
       },
       {
         type: "action",
         title: "Sign out",
         onClick: "signout",
-        onAuth: true,
+        valid: (auth:any) => {
+          return auth !== null;
+        },
       },
     ],
   };
 
   actionsHandler(type: string) {
     if (type === "signout") {
-      console.log(type);
+      this.props.signout();
     }
   }
 
   FilteredList(link: any, key: number) {
-    if (this.props.auth && link.onAuth !== undefined && !link.onAuth)
-      return null;
-    if (!this.props.auth && link.onAuth) return null;
+    if (link.valid && !link.valid(this.props.auth.auth)) return null;
     if (link.type === "link") {
       return (
         <Button color="inherit" key={key} component={Link} to={link.to}>
@@ -150,7 +164,9 @@ const mapStateToProps = (state: any) => {
 };
 
 const mapDispatchToProps = (dispatch: any) => {
-  return {};
+  return {
+    signout: () => dispatch(ac.signout())
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

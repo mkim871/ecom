@@ -28,13 +28,12 @@ interface LinkType {
 const NavBarDrawer = (props: {
   links: LinkType[];
   open: boolean;
-  auth: User;
+  auth: {auth:User|null};
   toggleDrawer: (b: boolean) => any;
   [any: string]: any;
 }) => {
   const FilteredList = (link: LinkType, key: number) => {
-    if (props.auth && (link.onAuth !== undefined && !link.onAuth)) return null;
-    if (!props.auth && link.onAuth) return null;
+    if (link.valid && !link.valid(props.auth.auth)) return null;
     if (link.type === "link") {
       return (
         <ListItem button key={key} component={Link} to={link.to}>
