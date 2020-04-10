@@ -2,17 +2,18 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Router, Switch, Route, Link } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
-import { history } from "../../_helpers/history";
 import { auth } from "../../firebase";
+import { history } from "../../_helpers/history";
+import userService from "../../_services/user.service";
+import theme from "../../_styles/theme";
 import Home from "../Home/Home";
 import Auth from "../Auth/Auth";
 import Alert from "../Alert/Alert";
 import Lists from "../Lists/Lists";
 import Item from "../Item/Item";
-import * as ac from "../Auth/actions";
-import userService from "../../_services/user.service";
-import theme from "../../_styles/theme";
 import NavBar from "../NavBar/NavBar";
+import Wishlist from "../Wishlist/Wishlist";
+import * as ac from "../Auth/actions";
 
 import { createMuiTheme, ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import {pink, red} from '@material-ui/core/colors';
@@ -53,6 +54,7 @@ class App extends Component {
               <Route path="/auth/register" exact component={Auth} />
               <Route path="/auth/signin" exact component={Auth} />
               <Route path="/lists" exact component={Lists} />
+              <Route path="/wishlist" exact component={Wishlist} />
               <Route path="/lists/:id" component={Item} />
               <Route render={() => <div>Not found</div>}></Route>
             </Switch>
